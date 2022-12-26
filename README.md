@@ -1,2 +1,0 @@
-# pptr
-puppeteer project
