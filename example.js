@@ -1,32 +1,19 @@
-const puppeteer = require('puppeteer')
+const puppeteer = require('puppeteer');
 (async () => {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
   
-    await page.goto('https://developers.google.com/web/');
+    await page.goto('https://www.fitnessai.com/exercise/overhead-crunch-machine');
   
-    // Type into search box.
-    await page.type('.devsite-search-field', 'Headless Chrome');
+    await page.waitForSelector('source').then( async () => {
+      let src = await page.$eval("source", n => n.getAttribute("src"));
+      const last = await page.$('video');
+      const prev = await page.evaluateHandle(el => el.previousElementSibling, last);
+      console.log(`uri: '${src}'`, '\n', `previuos item = ${prev}`);
+    })
   
-    // Wait for suggest overlay to appear and click "show all results".
-    const allResultsSelector = '.devsite-suggest-all-results';
-    await page.waitForSelector(allResultsSelector);
-    await page.click(allResultsSelector);
-  
-    // Wait for the results page to load and display the results.
-    const resultsSelector = '.gsc-results .gs-title';
-    await page.waitForSelector(resultsSelector);
-  
-    // Extract the results from the page.
-    const links = await page.evaluate(resultsSelector => {
-      return [...document.querySelectorAll(resultsSelector)].map(anchor => {
-        const title = anchor.textContent.split('|')[0].trim();
-        return `${title} - ${anchor.href}`;
-      });
-    }, resultsSelector);
-  
-    // Print all the files.
-    console.log(links.join('\n'));
+    
+    
   
     await browser.close();
   })();
