@@ -3,6 +3,9 @@ const fs = require('fs');
 let all = [];
 
 async function getURL(url) {
+
+    process.setMaxListeners(0)
+
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
     await page.goto(url, { timeout: 0 });
@@ -30,6 +33,7 @@ async function getURL(url) {
             return data
         });
     all = (alternatives.concat(variations))
+    console.log(all);
     // fs.appendFileSync('./urls.json', JSON.stringify(all))
     // fs.appendFileSync('./urls.json', ',')
     await browser.close();

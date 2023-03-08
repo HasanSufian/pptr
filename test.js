@@ -1,13 +1,14 @@
 const puppeteer = require('puppeteer');
 const fs = require('fs');
 const titles = [];
-const exercises = [];
+// const exercises = [];
 
 
 async function getExercise(url) {
+
+    process.setMaxListeners(0)
+
     const browser = await puppeteer.launch();
-
-
     const page = await browser.newPage();
     await page.goto(url, { timeout: 0 });
     const exTitle = await page.$eval(".exercise-fade-in.wf-section>h1.heading-20", e => e.innerText)
@@ -135,21 +136,51 @@ async function getExercise(url) {
 
 
 const urls = [
-
-    'https://www.fitnessai.com/exercise/wide-grip-barbell-bench-press',
-    'https://www.fitnessai.com/exercise/wide-grip-barbell-bench-press',
-    'https://www.fitnessai.com/exercise/close-grip-barbell-bench-press',
-    'https://www.fitnessai.com/exercise/bench-press',
-    'https://www.fitnessai.com/exercise/cable-push-down',
+    'https://www.fitnessai.com/exercise/cable-lying-chest-fly',
+    'https://www.fitnessai.com/exercise/decline-dumbbell-bench-press',
     'https://www.fitnessai.com/exercise/incline-dumbbell-press',
     'https://www.fitnessai.com/exercise/incline-chest-press-machine',
     'https://www.fitnessai.com/exercise/band-chest-press',
+    'https://www.fitnessai.com/exercise/ez-bar-bench-press',
+    'https://www.fitnessai.com/exercise/decline-dumbbell-chest-fly',
     'https://www.fitnessai.com/exercise/incline-dumbbell-fly',
-    'https://www.fitnessai.com/exercise/incline-dumbbell-fly',
-
+    'https://www.fitnessai.com/exercise/assisted-dip',
+    'https://www.fitnessai.com/exercise/close-grip-dumbbell-bench-press',
+    'https://www.fitnessai.com/exercise/cable-chest-press',
+    'https://www.fitnessai.com/exercise/high-band-chest-press',
+    'https://www.fitnessai.com/exercise/dumbbell-fly',
+    'https://www.fitnessai.com/exercise/chest-fly-machine',
+    'https://www.fitnessai.com/exercise/smith-machine-incline-bench-press',
+    'https://www.fitnessai.com/exercise/dumbbell-bench',
+    'https://www.fitnessai.com/exercise/smith-machine-bench-press',
+    'https://www.fitnessai.com/exercise/band-chest-fly',
+    'https://www.fitnessai.com/exercise/chest-press-machine',
+    'https://www.fitnessai.com/exercise/high-cable-chest-fly',
+    'https://www.fitnessai.com/exercise/medium-cable-chest-fly',
+    'https://www.fitnessai.com/exercise/push-up-with-back-extension',
+    'https://www.fitnessai.com/exercise/shoulder-tap-push-up',
+    'https://www.fitnessai.com/exercise/cobra-push-up',
+    'https://www.fitnessai.com/exercise/spiderman-burpee',
+    'https://www.fitnessai.com/exercise/kneeling-decline-push-up',
+    'https://www.fitnessai.com/exercise/chair-dip',
+    'https://www.fitnessai.com/exercise/decline-push-up',
+    'https://www.fitnessai.com/exercise/clap-push-up',
+    'https://www.fitnessai.com/exercise/chest-dip',
+    'https://www.fitnessai.com/exercise/kneeling-cobra-push-up',
+    'https://www.fitnessai.com/exercise/push-up',
+    'https://www.fitnessai.com/exercise/one-arm-cable-chest-fly',
+    'https://www.fitnessai.com/exercise/one-arm-band-cross-body-chest-press',
+    'https://www.fitnessai.com/exercise/renegade-row',
+    'https://www.fitnessai.com/exercise/wide-grip-barbell-bench-press',
+    'https://www.fitnessai.com/exercise/decline-barbell-bench-press',
+    'https://www.fitnessai.com/exercise/incline-bench',
+    'https://www.fitnessai.com/exercise/bench-press',
+    'https://www.fitnessai.com/exercise/decline-barbell-pullover'
 ]
 
-urls.forEach(el => getExercise(el))
+// method 1 
+// urls.forEach(el => getExercise(el))
+for (let el of urls) { getExercise(el) }
 
 
 
